@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import carz.dao.DAOFactory;
+import carz.dao.ICityDAO;
 import carz.service.ICarService;
 import carz.service.ServiceFactory;
 
@@ -25,7 +27,10 @@ public class MainHeadServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ICarService service = (ICarService) ServiceFactory.buildFactory().createCarService();
 		List<String> brandList = service.searchBrands();
+		ICityDAO dao = DAOFactory.buildDAOFactory().createCityDAO();
+		List<String> citysNameList = dao.searchCitysName();
 		request.setAttribute("brandList", brandList);
+		request.setAttribute("citysNameList", citysNameList);
 		request.getRequestDispatcher("MainHeadPage.jsp").include(request, response);
 	}
 

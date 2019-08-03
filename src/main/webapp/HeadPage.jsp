@@ -50,6 +50,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$("#zhuxiao").css('display', 'none');
 		}
 	});
+	function cityChange(cityName){
+		$("#closeCityForm").trigger("click");
+		var icon = $("#cityIcon");
+		$("#citySelect").html(icon);
+		$("#cityIcon").after(cityName);
+	}
 </script>
 </head>
 <body>
@@ -139,8 +145,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!-- //search-scripts -->
 					<ul>
 
-						<li><a style="position: relative; left: 90px" href="#"
-							data-toggle="modal" data-target="#myModal4"><i
+						<li><a id ="citySelect" style="position: relative; left: 90px" href="#"
+							data-toggle="modal" data-target="#myModal4"><i id="cityIcon"
 								class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>选择你的位置</a></li>
 						<li style="width: 60px"><div id="regist" class="tag"
 								style="position: relative; top: 5px; left: 100px; display: block">
@@ -283,7 +289,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="modal-dialog sign" role="document">
 			<div class="modal-content about">
 				<div class="modal-header one">
-					<button type="button" class="close sg" data-dismiss="modal"
+					<button type="button" class="close sg" data-dismiss="modal" id="closeCityForm"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>

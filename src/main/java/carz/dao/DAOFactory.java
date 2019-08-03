@@ -77,5 +77,16 @@ public class DAOFactory {
 		}
 		return dao;
 	}
+	public ICityDAO  createCityDAO() {
+		ICityDAO dao = null;
+		try {
+			dao = (ICityDAO) this
+					.createObject(this.props.getProperty("cityDAO"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return dao;
+	}
 
 }
