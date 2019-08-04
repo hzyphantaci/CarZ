@@ -15,7 +15,7 @@ public class CarServiceImpl implements ICarService {
 	private IPictureDAO picDAO = DAOFactory.buildDAOFactory().createPictureDAO();
 	private ICarDAO carDAO = DAOFactory.buildDAOFactory().createCarDAO();
 
-	public List<CarVO> searchCars(int currPageNo, String keyword) {
+	public List<CarVO> searchCarsByModel(int currPageNo, String keyword) {
 		List<CarVO> carlist = null;
 		int sumCount = this.carDAO.findCount(keyword);
 		//计算总页码数
@@ -35,14 +35,11 @@ public class CarServiceImpl implements ICarService {
 		for(CarPO p : carPOList) {
 			vo = new CarVO(p);
 			carlist.add(vo);
-			List<PicPO> picList = this.picDAO.findPicturesByComId(vo.getCarId(), 0);
+			List<PicPO> picList = this.picDAO.findPicturesByCarId(vo.getCarId(), 0);
 			if (picList != null && picList.size() == 1) {
 				vo.setListPicUrl(picList.get(0).getPicSrc());
-			}
-			
-			
-		}
-		
+			}					
+		}	
 		return carlist;
 	}
 
@@ -76,9 +73,13 @@ public class CarServiceImpl implements ICarService {
 		}
 		return vo;
 	}
-	public List<String> searchBrands() {
-		
+	public List<String> searchBrands() {		
 		return carDAO.searchBrands();
+	}
+
+	@Override
+	public List<String> searchPowers() {
+		return carDAO.searchPowers();
 	}
 
 }

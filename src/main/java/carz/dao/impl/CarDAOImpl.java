@@ -331,6 +331,31 @@ public class CarDAOImpl implements ICarDAO {
 		return list;
 	}
 
+	@Override
+	public List<String> searchPowers() {
+		List<String> list = new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select distinct car_power from carz_car order by convert(car_power using gbk)";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				while(rs.next()) {
+					list.add(rs.getString("car_power"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+
 	// public List<CarPO> searchCurrPageCars(int currPageNo, int number, String
 	// keyword) {
 	// List<CarPO> foodList = null;

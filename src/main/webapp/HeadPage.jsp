@@ -21,8 +21,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" type="text/css" href="css/zoomslider.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"
-	media="all" />
 <script type="text/javascript" src="js/modernizr-2.6.2.min.js"></script>
 <script src="js/jquery-1.11.1.min.js"></script>
 <!--/web-fonts-->
@@ -34,6 +32,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,500,700,300'
 	rel='stylesheet' type='text/css'>
 <!--//web-fonts-->
+</head>
+<script src="js/classie.js"></script>
+<body>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var user = "${sessionScope.user.userName}";
@@ -49,6 +50,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$("#userName").css('display', 'none');
 			$("#zhuxiao").css('display', 'none');
 		}
+		var city = "${sessionScope.city}";
+		if(city!=""){
+			var icon = $("#cityIcon");
+			$("#citySelect").html(icon);
+			$("#cityIcon").after(city);
+		}
 	});
 	function cityChange(cityName){
 		$("#closeCityForm").trigger("click");
@@ -57,8 +64,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#cityIcon").after(cityName);
 	}
 </script>
-</head>
-<body>
 	<!--/banner-section-->
 	<div id="demo-1" class="banner-inner">
 		<div class="banner-inner-dott">
@@ -294,16 +299,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<div class="discount one">
-						<h3>选择你的城市</h3>
-
+						<h3>请告诉我们你的城市</h3>
 					</div>
 				</div>
-				<div class="modal-body about">
+				<div class="modal-body about" >
 					<div class="login-top sign-top location">
 						<form action="#" method="post">
-							<select id="country12" onchange="change_country(this.value)"
+							<select id="country12" onchange="cityChange(this.value)"
 								class="frm-field required">
-								<option value="null">选择城市</option>
+								<option value="null" style="display: none" disabled selected>选择城市</option>
+								<c:forEach items="${citysNameList}" var="city">
+							    <option value="${city}">${city}</option>
+							    </c:forEach>
 							</select>
 						</form>
 					</div>

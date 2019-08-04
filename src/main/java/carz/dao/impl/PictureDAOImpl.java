@@ -13,7 +13,7 @@ import carz.util.ResultSet2ListUtil;
 
 public class PictureDAOImpl implements IPictureDAO {
 
-	public List<PicPO> findPicturesByComId(int fdId, int picType) {
+	public List<PicPO> findPicturesByComId(int comId, int picType) {
 		List<PicPO> picList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -23,7 +23,7 @@ public class PictureDAOImpl implements IPictureDAO {
 			conn = dbConn.getConnection();
 			String sql = "select * from carz_picture where com_id=? and pic_type=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, fdId);
+			pstmt.setInt(1, comId);
 			pstmt.setInt(2, picType);
 			rs = pstmt.executeQuery();
 			if(rs != null) {
@@ -39,7 +39,7 @@ public class PictureDAOImpl implements IPictureDAO {
 		return picList;
 	}
 
-	public List<PicPO> findPicturesByCarId(int fdId, int picType) {
+	public List<PicPO> findPicturesByCarId(int carId, int picType) {
 		List<PicPO> picList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -49,7 +49,7 @@ public class PictureDAOImpl implements IPictureDAO {
 			conn = dbConn.getConnection();
 			String sql = "select * from carz_picture where car_id=? and pic_type=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, fdId);
+			pstmt.setInt(1, carId);
 			pstmt.setInt(2, picType);
 			rs = pstmt.executeQuery();
 			if(rs != null) {

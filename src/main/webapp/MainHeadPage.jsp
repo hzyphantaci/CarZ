@@ -50,12 +50,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$("#userName").css('display', 'none');
 			$("#zhuxiao").css('display', 'none');
 		}
+		var city = "${sessionScope.city}";
+		if(city!=""){
+			var icon = $("#cityIcon");
+			$("#citySelect").html(icon);
+			$("#cityIcon").after(city);
+		}
 	});
 	function cityChange(cityName){
 		$("#closeCityForm").trigger("click");
 		var icon = $("#cityIcon");
 		$("#citySelect").html(icon);
 		$("#cityIcon").after(cityName);
+		$("#hiddenCity").val(cityName);
 	}
 </script>
 	<!--/banner-section-->
@@ -267,6 +274,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<option value="more">更多</option>
 						</select>
 					</div>
+					<input id="hiddenCity" name="city" type="hidden" value="">
 					<input type="submit" value="选车">
 					<div class="clearfix"></div>
 				</form>

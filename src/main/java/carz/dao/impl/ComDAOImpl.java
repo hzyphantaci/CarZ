@@ -221,7 +221,7 @@ public class ComDAOImpl implements IComDAO {
 		try {
 			conn = dbConn.getConnection();
 			String sql = "select * from carz_commodity where com_status = ?";
-			sql += " limit ?,?";
+			sql += " limit ?,? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, str);
 			pstmt.setInt(2, currPageNo * number);
@@ -239,6 +239,59 @@ public class ComDAOImpl implements IComDAO {
 		}
 		return list;
 	}
-	
-	
+	@Override
+	public List<CommodityPO> findByAll(int currPageNo, String address,
+			List<String> brandList, Double budget,
+			List<String> typeList, String color, String power, String gear,
+			int state) {
+		List<CommodityPO> list = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select * from carz_commodity com join carz_car car where com.car_id=car.car_id";
+			if(address!=null)
+				sql+=" and com_address =? ";
+			if(brandList!=null&&brandList.size()!=0) {
+				sql+=" and car_brand in (";
+				for(int i=0;i<brandList.size();i++) {
+					if(i!=0)
+						sql+=",";
+					sql+="?";
+				}
+				sql+=") ";
+			}
+			if(typeList!=null&&typeList.size()!=0) {
+				sql+=" and car_type in (";
+				for(int i=0;i<typeList.size();i++) {
+					if(i!=0)
+						sql+=",";
+					sql+="?";
+				}
+				sql+=") ";
+			}
+			if(color!=null)
+				sql+=" and com_color = ? ";
+			if(power!=null)
+				sql+=" and car_power = ? ";
+			if(gear!=null)
+				sql+=" and car_gear = ? ";
+			if(state!=0) {
+				sql+=" and com_state = ? ";
+			}
+			if(budget!=0) {
+				sql+=" and com_price between ? and ? ";
+			}
+			
+			sql+=" limit ?,? ";
+			System.out.println(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return list;
+	}	
 }

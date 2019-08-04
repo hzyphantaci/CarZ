@@ -5,5 +5,5 @@ import java.util.List;
 import carz.vo.CommodityVO;
 
 public interface ICommodityService {
-    public List<CommodityVO> findByBrandAndBudget(String brand,String budget);
+    public List<CommodityVO> findByBrandAndBudget(String brand,String budget,int currPageNo);
 }
