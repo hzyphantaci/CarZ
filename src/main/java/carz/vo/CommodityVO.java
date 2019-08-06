@@ -1,7 +1,9 @@
 package carz.vo;
 
+import java.util.Date;
 import java.util.List;
 
+import carz.po.CarPO;
 import carz.po.CommodityPO;
 
 /**
@@ -9,14 +11,18 @@ import carz.po.CommodityPO;
  *
  */
 public class CommodityVO extends CommodityPO{
-	private CommodityPO carPo;
+	private CarVO carVO;
+	private CommodityPO comPo;
 	private String listPicUrl;
 	private List<String> goodsPicUrl;
-	public CommodityPO getCarPo() {
-		return carPo;
+	public CommodityPO getComPo() {
+		return comPo;
 	}
-	public void setCarPo(CommodityPO carPo) {
-		this.carPo = carPo;
+	public void setComPo(CommodityPO comPo) {
+		this.comPo = comPo;
+	}
+	public void setCarPo(CarVO carVO) {
+		this.carVO = carVO;
 	}
 	public String getListPicUrl() {
 		return listPicUrl;
@@ -33,72 +39,118 @@ public class CommodityVO extends CommodityPO{
 	@Override
 	public int getComId() {
 		// TODO Auto-generated method stub
-		return super.getComId();
+		return comPo.getComId();
 	}
 	@Override
 	public int getCarId() {
 		// TODO Auto-generated method stub
-		return super.getCarId();
+		return comPo.getCarId();
 	}
 	@Override
 	public int getComState() {
 		// TODO Auto-generated method stub
-		return super.getComState();
+		return comPo.getComState();
 	}
 	@Override
 	public Double getComPrice() {
 		// TODO Auto-generated method stub
-		return super.getComPrice();
+		return comPo.getComPrice();
 	}
 	@Override
-	public long getComDate() {
+	public Date getComDate() {
 		// TODO Auto-generated method stub
-		return super.getComDate();
+		return comPo.getComDate();
 	}
 	@Override
-	public double getComMileage() {
+	public Double getComMileage() {
 		// TODO Auto-generated method stub
-		return super.getComMileage();
+		return comPo.getComMileage();
 	}
 	@Override
 	public String getComColor() {
 		// TODO Auto-generated method stub
-		return super.getComColor();
+		return comPo.getComColor();
 	}
 	@Override
 	public String getComAddress() {
 		// TODO Auto-generated method stub
-		return super.getComAddress();
+		return comPo.getComAddress();
 	}
 	@Override
 	public String getComLicenseAddress() {
 		// TODO Auto-generated method stub
-		return super.getComLicenseAddress();
+		return comPo.getComLicenseAddress();
 	}
 	@Override
 	public double getComInsurance() {
 		// TODO Auto-generated method stub
-		return super.getComInsurance();
+		return comPo.getComInsurance();
 	}
 	@Override
 	public double getComTax() {
 		// TODO Auto-generated method stub
-		return super.getComTax();
+		return comPo.getComTax();
 	}
 	@Override
 	public String getComCarid() {
 		// TODO Auto-generated method stub
-		return super.getComCarid();
+		return comPo.getComCarid();
 	}
 	@Override
-	public long getComUpdateTime() {
+	public Date getComUpdateTime() {
 		// TODO Auto-generated method stub
-		return super.getComUpdateTime();
+		return comPo.getComUpdateTime();
 	}
 	@Override
 	public int getComStatus() {
 		// TODO Auto-generated method stub
-		return super.getComStatus();
+		return comPo.getComStatus();
 	}
 	
+
+	
+	public String getCarBrand() {
+		// TODO Auto-generated method stub
+		return carVO.getCarBrand();
+	}
+
+	public String getCarModel() {
+		// TODO Auto-generated method stub
+		return carVO.getCarModel();
+	}
+
+	public double getCarPrice() {
+		// TODO Auto-generated method stub
+		return carVO.getCarPrice();
+	}
+
+	public String getCarType() {
+		// TODO Auto-generated method stub
+		return carVO.getCarType();
+	}
+
+	public String getCarPower() {
+		// TODO Auto-generated method stub
+		return carVO.getCarPower();
+	}
+
+	public String getCarGear() {
+		// TODO Auto-generated method stub
+		return carVO.getCarGear();
+	}
+
+	public String getCarEffc() {
+		// TODO Auto-generated method stub
+		return carVO.getCarEffc();
+	}
+	
+	public String getCarFeature() {
+		// TODO Auto-generated method stub
+		return carVO.getCarFeature();
+	}
+	
+	public String getCarSpec() {
+		// TODO Auto-generated method stub
+		return carVO.getCarSpec();
+	}
 }

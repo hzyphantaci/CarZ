@@ -4,24 +4,26 @@ public class PicPO {
 	private int picId;
 	private int carId;
 	private int comId;
-	private String picSrc;
+	private int newsId;
+	private String picUrl;
 	private int picType;
 	public PicPO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PicPO(int picId, int carId, int comId, String picSrc, int picType) {
+	public PicPO(int picId, int carId, int comId, int newsId,String picUrl, int picType) {
 		super();
 		this.picId = picId;
 		this.carId = carId;
 		this.comId = comId;
-		this.picSrc = picSrc;
+		this.newsId=newsId;
+		this.picUrl = picUrl;
 		this.picType = picType;
 	}
 	@Override
 	public String toString() {
 		return "PicPO [picId=" + picId + ", carId=" + carId + ", comId=" + comId
-				+ ", picSrc=" + picSrc + ", picType=" + picType + "]";
+				+ ", picSrc=" + picUrl + ", picType=" + picType + "]";
 	}
 	public int getPicId() {
 		return picId;
@@ -41,11 +43,18 @@ public class PicPO {
 	public void setComId(int comId) {
 		this.comId = comId;
 	}
-	public String getPicSrc() {
-		return picSrc;
+	public int getNewsId() {
+		return newsId;
 	}
-	public void setPicSrc(String picSrc) {
-		this.picSrc = picSrc;
+	public void setNewsId(int newsId) {
+		this.newsId = newsId;
+	}
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
 	}
 	public int getPicType() {
 		return picType;

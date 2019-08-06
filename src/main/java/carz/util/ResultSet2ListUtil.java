@@ -24,7 +24,10 @@ public class ResultSet2ListUtil {
 					Method method = obj.getMethod("set" + replace, type);
 					if (type.isAssignableFrom(String.class)) {
 						method.invoke(newInstance, rs.getString(i));
-					} else if (type.isAssignableFrom(int.class)
+					} else if (type.isAssignableFrom(double.class)
+							||type.isAssignableFrom(Double.class)) {
+						method.invoke(newInstance, rs.getDouble(i));
+					}else if (type.isAssignableFrom(int.class)
 							|| type.isAssignableFrom(Integer.class)) {
 						method.invoke(newInstance, rs.getInt(i));
 					} else if (type.isAssignableFrom(Boolean.class)

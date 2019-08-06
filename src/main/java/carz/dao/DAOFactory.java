@@ -88,5 +88,15 @@ public class DAOFactory {
 		}
 		return dao;
 	}
-
+	public ISellDAO  createSellDAO() {
+		ISellDAO dao = null;
+		try {
+			dao = (ISellDAO) this
+					.createObject(this.props.getProperty("sellDAO"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return dao;
+	}
 }

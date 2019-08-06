@@ -1,11 +1,13 @@
 package carz.po;
 
+import java.util.Date;
+
 public class CommodityPO {
 	private int comId;
 	private int carId;
 	private int comState;
-	private Double comPrice;
-	private long com_Date;
+	private double comPrice;
+	private Date comDate;
 	private double comMileage;
 	private String comColor;
 	private String comAddress;
@@ -13,22 +15,22 @@ public class CommodityPO {
 	private double comInsurance;
 	private double comTax;
 	private String comCarid;
-	private long comUpdateTime;
+	private Date comUpdateTime;
 	private int comStatus;
 	public CommodityPO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CommodityPO(int comId, int carId, int comState, Double comPrice,
-			long com_Date, double comMileage, String comColor,
+	public CommodityPO(int comId, int carId, int comState, double comPrice,
+			Date com_Date, double comMileage, String comColor,
 			String comAddress, String comLicenseAddress, double comInsurance,
-			double comTax, String comCarid, long comUpdateTime, int comStatus) {
+			double comTax, String comCarid, Date comUpdateTime, int comStatus) {
 		super();
 		this.comId = comId;
 		this.carId = carId;
 		this.comState = comState;
 		this.comPrice = comPrice;
-		this.com_Date = com_Date;
+		this.comDate = com_Date;
 		this.comMileage = comMileage;
 		this.comColor = comColor;
 		this.comAddress = comAddress;
@@ -43,7 +45,7 @@ public class CommodityPO {
 	public String toString() {
 		return "CommodityPO [comId=" + comId + ", carId=" + carId
 				+ ", comState=" + comState + ", comPrice=" + comPrice
-				+ ", com_Date=" + com_Date + ", comMileage=" + comMileage
+				+ ", com_Date=" + comDate + ", comMileage=" + comMileage
 				+ ", comColor=" + comColor + ", comAddress=" + comAddress
 				+ ", comLicenseAddress=" + comLicenseAddress + ", comInsurance="
 				+ comInsurance + ", comTax=" + comTax + ", comCarid=" + comCarid
@@ -71,16 +73,16 @@ public class CommodityPO {
 	public Double getComPrice() {
 		return comPrice;
 	}
-	public void setComPrice(Double comPrice) {
+	public void setComPrice(double comPrice) {
 		this.comPrice = comPrice;
 	}
-	public long getComDate() {
-		return com_Date;
+	public Date getComDate() {
+		return comDate;
 	}
-	public void setComDate(long comDate) {
-		this.com_Date = comDate;
+	public void setComDate(Date comDate) {
+		this.comDate = comDate;
 	}
-	public double getComMileage() {
+	public Double getComMileage() {
 		return comMileage;
 	}
 	public void setComMileage(double comMileage) {
@@ -122,10 +124,10 @@ public class CommodityPO {
 	public void setComCarid(String comCarid) {
 		this.comCarid = comCarid;
 	}
-	public long getComUpdateTime() {
+	public Date getComUpdateTime() {
 		return comUpdateTime;
 	}
-	public void setComUpdateTime(long comUpdateTime) {
+	public void setComUpdateTime(Date comUpdateTime) {
 		this.comUpdateTime = comUpdateTime;
 	}
 	public int getComStatus() {

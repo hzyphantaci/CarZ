@@ -63,4 +63,29 @@ public class CityDAOImpl implements ICityDAO {
 		return list;
 	}
 
+	@Override
+	public CityPO searchCitysUrl(String country) {
+		CityPO cityPO = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select * from carz_city where city_address=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, country);
+			rs = pstmt.executeQuery();
+			if (rs != null&& rs.next()) {
+				cityPO=new CityPO();
+				cityPO.setCityUrl(rs.getString("city_url"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return cityPO;
+	}
+
 }

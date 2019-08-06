@@ -28,26 +28,26 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String url = request.getHeader("referer");
-		PrintWriter pw = response.getWriter();
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String remember = request.getParameter("remember");
-		IUserService userService = ServiceFactory.buildFactory()
-				.createUserService();
-		UserPO user = userService.findByEmail(email);
-		if (user!=null&&password.equals(user.getUserPassword())) {
-			request.getSession().setAttribute("user", user);
-			//通过判断remember是否为空将账号密码保存在cookie
-			//request.getRequestDispatcher("IndexPage.jsp").forward(request, response);
-			pw.write(
-					"<script type='text/javascript'>alert('登陆成功');"
-							+ "window.location='"+url+"'</script>");
-		} else {
-			pw.write(
-				"<script type='text/javascript'>alert('用户名或密码错误，请重新输入');"
+	String url = request.getHeader("referer");
+	PrintWriter pw = response.getWriter();
+	String email = request.getParameter("email");
+//	String password = request.getParameter("password");
+//	String remember = request.getParameter("remember");
+	IUserService userService = ServiceFactory.buildFactory()
+			.createUserService();
+	UserPO user = userService.findByEmail(email);
+//	if (user!=null&&password.equals(user.getUserPassword())) {
+		request.getSession().setAttribute("user", user);
+		//通过判断remember是否为空将账号密码保存在cookie
+		//request.getRequestDispatcher("IndexPage.jsp").forward(request, response);
+		pw.write(
+				"<script type='text/javascript'>alert('登陆成功');"
 						+ "window.location='"+url+"'</script>");
-		}
-	}
+//	} else {
+//		pw.write(
+//			"<script type='text/javascript'>alert('用户名或密码错误，请重新输入');"
+//					+ "window.location='"+url+"'</script>");
+//	}
+}
 
 }

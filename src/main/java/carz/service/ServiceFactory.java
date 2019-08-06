@@ -54,5 +54,12 @@ public class ServiceFactory {
 			throw new RuntimeException(e);
 		}
 	}
+	public ISellService createSellService() {
+		try {
+			return (ISellService)this.createObject(props.getProperty("sellService"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
     
 }

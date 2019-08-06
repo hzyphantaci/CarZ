@@ -37,37 +37,37 @@ public class CarServiceImpl implements ICarService {
 			carlist.add(vo);
 			List<PicPO> picList = this.picDAO.findPicturesByCarId(vo.getCarId(), 0);
 			if (picList != null && picList.size() == 1) {
-				vo.setListPicUrl(picList.get(0).getPicSrc());
+				vo.setListPicUrl(picList.get(0).getPicUrl());
 			}					
 		}	
 		return carlist;
 	}
 
-	public CarVO searchCarById(int fdId) {
+	public CarVO searchCarById(int carId) {
 		CarVO vo = null;
-		CarPO po = this.carDAO.findById(fdId);
+		CarPO po = this.carDAO.findById(carId);
 		vo = new CarVO(po);
-		List<PicPO> carPicturePO = this.picDAO.findPicturesByComId(fdId, 1);//汽车图片 1
+		List<PicPO> carPicturePO = this.picDAO.findPicturesByComId(carId, 1);//汽车图片 1
 		if(carPicturePO != null) {
 			List<String> carPictureUrlList = new ArrayList<String>();
 			for(PicPO p : carPicturePO) {
-				carPictureUrlList.add(p.getPicSrc());
+				carPictureUrlList.add(p.getPicUrl());
 			}
 			vo.setCarPicUrl(carPictureUrlList);
 		}
-		carPicturePO = this.picDAO.findPicturesByComId(fdId, 2);//商品图片 1
+		carPicturePO = this.picDAO.findPicturesByComId(carId, 2);//商品图片 1
 		if(carPicturePO != null) {
 			List<String> carPictureUrlList = new ArrayList<String>();
 			for(PicPO p : carPicturePO) {
-				carPictureUrlList.add(p.getPicSrc());
+				carPictureUrlList.add(p.getPicUrl());
 			}
 			vo.setGoodsPicUrl(carPictureUrlList);
 		}
-		carPicturePO = this.picDAO.findPicturesByComId(fdId, 0);//展示图片 0
+		carPicturePO = this.picDAO.findPicturesByComId(carId, 0);//展示图片 0
 		if(carPicturePO != null) {
 			List<String> carPictureUrlList = new ArrayList<String>();
 			for(PicPO p : carPicturePO) {
-				carPictureUrlList.add(p.getPicSrc());
+				carPictureUrlList.add(p.getPicUrl());
 			}
 			vo.setShowPicUrl(carPictureUrlList);
 		}
@@ -80,6 +80,16 @@ public class CarServiceImpl implements ICarService {
 	@Override
 	public List<String> searchPowers() {
 		return carDAO.searchPowers();
+	}
+
+	@Override
+	public List<String> searchModels() {
+		return carDAO.searchModels();
+	}
+
+	@Override
+	public List<String> searchTypes() {
+		return carDAO.searchTypes();
 	}
 
 }

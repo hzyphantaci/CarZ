@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>used_cars</title>
+<link rel="stylesheet" type="text/css" href="css/component.css" />
 </head>
 <body>
 <%@include file="HeadPage.jsp"%>
@@ -199,4 +200,5 @@
 	</div>
 <%@include file="TailPage.jsp"%>
 </body>
+<script src="js/bootstrap.js"></script>
 </html>

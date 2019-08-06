@@ -10,19 +10,82 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script type="text/javascript">
-		$(document).ready(function(){
+	$(document).ready(function() {
+		if ("${budget}" != "") {
 			$(".budgetChange").val("${budget}");
+		}
+		if ("${city}" != "") {
 			$(".cityChange").val("${city}");
-			$(".${brand}").prop("checked",true); 
-			$.ajax({
-				type:'post',
-				url:'CarsListServlet',
-				success:function(result){
-					$("#displaySelect").after(result);
+		}
+		if ("${brand}" != "all" && "${brand}" != "") {
+			$(".${brand}").prop("checked", true);
+		}
+		ConditionsChange();
+		//	$.ajax({
+		//		type:'post',
+		//			url:'CarsListServlet',
+		//		success:function(result){
+		//			$("#displaySelect").after(result);
+		//		}
+		//		});
+		var old = null; //用来保存原来的对象
+		$(".radioBtn").each(function() {//循环绑定事件
+			if (this.checked) {
+				old = this; //如果当前对象选中，保存该对象
+			}
+			this.onclick = function() {
+				if (this == old) {//如果点击的对象原来是选中的，取消选中
+					this.checked = false;
+					old = null;
+				} else {
+					old = this;
 				}
-			});
+			}
 		});
-	</script>
+	});
+
+	function ConditionsChange(_page) {
+		var _address = $(".cityChange").val();
+		var _budget = $(".budgetChange").val()
+		var _type = [];
+		$(".carType").find("input[name='carType']:checked").each(function() {
+			_type.push($(this).val());
+		});
+		var _brand = [];
+		$(".carBrand").find("input[name='carBrand']:checked").each(function() {
+			_brand.push($(this).val());
+		});
+		var _state = $("input[name='carState']:checked").val();
+		var _gear = $("input[name='carGear']:checked").val();
+		var _power = $("input[name='carPower']:checked").val();
+		//alert(_address+_budget+_type+_brand+_state+_gear+_power);
+		var args = {
+			"page":_page,
+			"address" : _address,
+			"budget" : _budget,
+			"type[]" : _type,
+			"brand[]" : _brand,
+			"state" : _state,
+			"gear" : _gear,
+			"power" : _power
+		};
+		$.ajax({
+			type : 'post',
+			url : 'CarsListServlet',
+			data : args,
+			success : function(result) {
+				$("#products").html(result);
+			    var pageCount = $("#pageCount").val();
+			    var page ="<ul><li><a class=\"frist firstPage\" href=\"javascript:void(0);\">上一页</a></li>";
+			    for(var i=1;i<=pageCount;i++){
+			    	page+=("<li><a href=\"javascript:void(0);\" onclick=\"ConditionsChange("+i+")\">"+i+"</a></li>");
+			    }
+			    page+="<li><a class=\"last\" href=\"javascript:void(0);\">下一页</a></li><div class=\"clearfix\"></div>";
+			    $("#pageBlock").html(page);
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<%@include file="HeadPage.jsp"%>
@@ -62,18 +125,19 @@
 					</section>
 					<div class="w_nav1">
 						<h4>选择城市</h4>
-						<select id="country12"	class="frm-field required cityChange">
+						<select id="country12" class="frm-field required cityChange"
+							onchange="ConditionsChange()">
 							<option value="null" style="display: none" disabled selected>城市</option>
-								<option value="all">不限</option>
-								<c:forEach items="${citysNameList}" var="city">
-							    <option value="${city}">${city}</option>
-							    </c:forEach>
+							<option value="all">不限</option>
+							<c:forEach items="${citysNameList}" var="city">
+								<option value="${city}">${city}</option>
+							</c:forEach>
 						</select>
 					</div>
 					<div class="w_nav1 two">
 						<h4>选择预算</h4>
-						<select id="country19" 
-							class="frm-field required budgetChange">
+						<select id="country19" class="frm-field required budgetChange"
+							onchange="ConditionsChange()">
 							<option value="null" style="display: none" disabled selected>预算
 							</option>
 							<option value="all">不限</option>
@@ -96,32 +160,23 @@
 					<section class="sky-form">
 						<h4>汽车类型</h4>
 						<div class="scrollbar" id="style-2">
-							<div class="form-inner">
-								<label class="checkbox">
-								<input type="checkbox"name="carModel"><i></i>小型轿车</label> 
-								<label class="checkbox">
-								<input type="checkbox" name="carModel"><i></i>中型轿车</label>
-								<label class="checkbox">
-								<input type="checkbox" name="carModel"><i></i>SUV</label>
-								<label class="checkbox">
-								<input type="checkbox"name="carModel"><i></i>跑车</label>
-								<label class="checkbox">
-								<input type="checkbox"name="carModel"><i></i>紧凑型</label>
-								<label class="checkbox">
-								<input type="checkbox"name="carModel"><i></i>微型车</label>
-								<label class="checkbox">
-								<input type="checkbox"name="carModel"><i></i>面包车</label>
+							<div class="form-inner carType">
+								<c:forEach items="${typeList}" var="type">
+									<label class="checkbox"> <input type="checkbox"
+										name="carType" value="${type}" onchange="ConditionsChange()"><i></i>${type}</label>
+								</c:forEach>
 							</div>
 						</div>
 					</section>
 					<section class="sky-form brandChange">
 						<h4>品牌</h4>
 						<div class="scrollbar" id="style-2">
-							<div class="form-inner">
-							    <c:forEach items="${brandList}" var="brand">
-							    <label class="checkbox">
-								<input type="checkbox"name="carBrand"class="${brand}"><i></i>${brand}</label> 
-							    </c:forEach>
+							<div class="form-inner carBrand">
+								<c:forEach items="${brandList}" var="brand">
+									<label class="checkbox"> <input type="checkbox"
+										name="carBrand" class="${brand}" value="${brand}"
+										onchange="ConditionsChange()"><i></i>${brand}</label>
+								</c:forEach>
 							</div>
 						</div>
 					</section>
@@ -145,30 +200,39 @@
 					<section class="sky-form">
 						<h4>新旧</h4>
 						<div class="form-inner">
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox"><i></i>新车</label> <label
-								class="checkbox"><input type="checkbox" name="checkbox"><i></i>二手车</label>
+							<form action="#">
+								<label class="radio"><input type="radio"
+									class="radioBtn" name="carState" value="新车"
+									onchange="ConditionsChange()"><i></i>新车</label> <label
+									class="radio"><input type="radio" class="radioBtn"
+									name="carState" value="二手车" onchange="ConditionsChange()"><i></i>二手车</label>
+							</form>
 
 						</div>
 					</section>
 					<section class="sky-form">
 						<h4>挡位</h4>
 						<div class="form-inner">
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox"><i></i>手动挡</label> <label class="checkbox"><input
-								type="checkbox" name="checkbox"><i></i>自动挡</label>
-
+							<form action="#">
+								<label class="radio"><input type="radio"
+									class="radioBtn" name="carGear" value="自动挡"
+									onchange="ConditionsChange()"><i></i>自动挡</label> <label
+									class="radio"><input type="radio" class="radioBtn"
+									name="carGear" value="手动挡" onchange="ConditionsChange()"><i></i>手动挡</label>
+							</form>
 						</div>
 					</section>
 					<section class="sky-form">
 						<h4>能源类型</h4>
 						<div class="scrollbar" id="style-2">
 							<div class="form-inner">
-							   <form action="#">
-								<c:forEach items="${powerList}" var="power">
-							        <label class="radio"><input type="radio" name="power"><i></i>${power}</label>
-							    </c:forEach>
-							    </form>
+								<form action="#">
+									<c:forEach items="${powerList}" var="power">
+										<label class="radio"><input type="radio"
+											class="radioBtn" name="carPower" value="${power}"
+											onchange="ConditionsChange()"><i></i>${power}</label>
+									</c:forEach>
+								</form>
 							</div>
 						</div>
 					</section>
@@ -187,20 +251,16 @@
 								class="glyphicon glyphicon-th"></span>Grid</a>
 						</div>
 					</div>
-					<nav>
-						<ul class="pagination pagination-lg">
-							<li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-						</ul>
-					</nav>
+					
+					<div id="products" class="row list-group">
+					</div>
 
 				</div>
-
+				<div style="float: right">
+					<div class="blog-pagenat" id="pageBlock">
+						<!--//page -->
+					</div>
+				</div>
 				<!--//search-car-right-text -->
 				<div class="clearfix"></div>
 			</div>

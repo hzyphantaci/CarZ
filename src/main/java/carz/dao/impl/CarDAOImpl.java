@@ -50,6 +50,31 @@ public class CarDAOImpl implements ICarDAO {
 
 		return count;
 	}
+	// id查询
+	public String findCarNameById(int id) {
+		String carName = null;
+		List<CarPO> list = null;
+		CarPO carpo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select car_model from carz_car where car_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			if (rs != null && rs.next()) {
+				carName = rs.getString("car_model");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return carName;
+	}
 
 	public List<CarPO> findAllCar(int currPageNo, int number) {
 		List<CarPO> list = null;
@@ -86,14 +111,13 @@ public class CarDAOImpl implements ICarDAO {
 		DBConnection dbConn = DBConnection.getInstance();
 		try {
 			conn = dbConn.getConnection();
-			String sql = "select * from carz_car where car_id = '?' ";
+			String sql = " select * from carz_car where car_id = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(0, id);
+			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
-			if (rs != null && rs.next()) {
-				list = new ArrayList<CarPO>();
-				carpo = new CarPO();
-				carpo = ResultSet2ListUtil.putResult(rs, CarPO.class).get(0);
+			if (rs != null) {
+				list = ResultSet2ListUtil.putResult(rs, CarPO.class);
+				carpo = list.get(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -319,7 +343,7 @@ public class CarDAOImpl implements ICarDAO {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs != null) {
-				while(rs.next()) {
+				while (rs.next()) {
 					list.add(rs.getString("car_brand"));
 				}
 			}
@@ -344,7 +368,7 @@ public class CarDAOImpl implements ICarDAO {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs != null) {
-				while(rs.next()) {
+				while (rs.next()) {
 					list.add(rs.getString("car_power"));
 				}
 			}
@@ -354,6 +378,79 @@ public class CarDAOImpl implements ICarDAO {
 			dbConn.close(conn, pstmt, rs);
 		}
 		return list;
+	}
+
+	@Override
+	public List<String> searchModels() {
+		List<String> list = new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select distinct car_model from carz_car order by convert(car_model using gbk)";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					list.add(rs.getString("car_model"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+
+	@Override
+	public List<String> searchTypes() {
+		List<String> list = new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select distinct car_type from carz_car order by convert(car_type using gbk)";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					list.add(rs.getString("car_type"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+	public String findBrandByComId(int comId) {
+		String brand = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select car_brand from carz_car where car_id = ( select car_id from\r\n"
+					+ " carz_commodity where com_id = ?);";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				brand = rs.getString("car_brand");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return brand;
 	}
 
 	// public List<CarPO> searchCurrPageCars(int currPageNo, int number, String

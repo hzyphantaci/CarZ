@@ -5,7 +5,6 @@
 <html>
 <head>
 <title>Carz</title>
-<!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords"
@@ -13,7 +12,7 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } 		
+		function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
 <!-- //for-mobile-apps -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
@@ -22,7 +21,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/component.css" />
 <script type="text/javascript" src="js/modernizr-2.6.2.min.js"></script>
-<script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jQuery.3.4.1.min.js"></script>
 <!--/web-fonts-->
 <link
 	href='//fonts.googleapis.com/css?family=Open+Sans:400,600,600italic,300,300italic,700,400italic'
@@ -31,10 +30,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,500,700,300'
 	rel='stylesheet' type='text/css'>
-<!--//web-fonts-->
-</head>
-<script src="js/classie.js"></script>
-<body>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var user = "${sessionScope.user.userName}";
@@ -50,12 +45,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$("#userName").css('display', 'none');
 			$("#zhuxiao").css('display', 'none');
 		}
-		var city = "${sessionScope.city}";
-		if(city!=""){
-			var icon = $("#cityIcon");
-			$("#citySelect").html(icon);
-			$("#cityIcon").after(city);
-		}
 	});
 	function cityChange(cityName){
 		$("#closeCityForm").trigger("click");
@@ -63,7 +52,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#citySelect").html(icon);
 		$("#cityIcon").after(cityName);
 	}
+    $(function(){
+    	$("#email1").change(function(){
+    		var val = $(this).val();
+    		val = $.trim(val);
+    		if(val!=""){
+    			var url = "${pageContext.request.contextPath}/Verification";
+    			var args = {"email1":val,"time":new Date(),"fromPage":"1"};
+    			$.post(url,args,function(data){
+    				$("#message").html(data);
+    			});
+    		}
+    	});
+    });
+    $(function(){
+    	$("#password2").change(function(){
+    		var val2 = $(this).val();
+    		var val1 = $("#password1").val();
+    		val1 = $.trim(val1);
+    		val2 = $.trim(val2);
+    		if(val1!=""&&val2!=""){
+    			var url = "${pageContext.request.contextPath}/Verification";
+    			var args = {"val1":val1,"val2":val2,"time":new Date(),"fromPage":"2"};
+    			$.post(url,args,function(data){
+    				$("#passwordMessage").html(data);
+    			});
+    		}
+    	});
+    });
+    
 </script>
+</head>
+<body>
 	<!--/banner-section-->
 	<div id="demo-1" class="banner-inner">
 		<div class="banner-inner-dott">
@@ -255,13 +275,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="modal-body about">
 					<div class="login-top sign-top one">
 						<form action="RegistServlet" method="post">
-							<input type="text" name="name" class="name active"
-								placeholder="用户名" required=""> <input type="text"
-								name="email" class="email" placeholder="E-mail" required="">
-							<input type="password" name="password" class="password"
-								placeholder="密码" required=""> <input type="password"
-								name="rePassword" class="password" placeholder="请再输入一次密码"
-								required=""> <input type="checkbox" id="brand1" value="">
+							<input type="text" name="name"  class="name active" placeholder="用户名" required=""> 
+							<input type="text" name="email" id="email1" class="email" placeholder="E-mail" required="">
+							<div id="message"></div>
+							<input type="password" name="password" id="password1" class="password" placeholder="密码" required=""> 
+							<input type="password" name="rePassword" id="password2" class="password" placeholder="请再输入一次密码" required="">
+							<div id="passwordMessage"></div>
+							<input type="checkbox" id="brand1" value="">
 							<label for="brand1"><span></span> 我同意条款和条件</label>
 							<div class="login-bottom one">
 								<ul>
@@ -299,18 +319,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<div class="discount one">
-						<h3>请告诉我们你的城市</h3>
+						<h3>选择你的城市</h3>
+
 					</div>
 				</div>
-				<div class="modal-body about" >
+				<div class="modal-body about">
 					<div class="login-top sign-top location">
 						<form action="#" method="post">
-							<select id="country12" onchange="cityChange(this.value)"
+							<select id="country12" onchange="change_country(this.value)"
 								class="frm-field required">
-								<option value="null" style="display: none" disabled selected>选择城市</option>
-								<c:forEach items="${citysNameList}" var="city">
-							    <option value="${city}">${city}</option>
-							    </c:forEach>
+								<option value="null">选择城市</option>
 							</select>
 						</form>
 					</div>

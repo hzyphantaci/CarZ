@@ -5,20 +5,20 @@ import java.util.List;
 import carz.po.CarPO;
 
 public class CarVO extends CarPO{
-	private CarPO carPo;
+	private CarPO carPO;
 	private String listPicUrl;
 	private List<String> carPicUrl;
 	private List<String> goodsPicUrl;
 	private List<String> showPicUrl;
 	public CarVO(CarPO carPo) {
-		this.carPo = carPo;
+		this.carPO = carPo;
 	} 
 	
 	public CarPO getCarPo() {
-		return carPo;
+		return carPO;
 	}
 	public void setCarPo(CarPO carPo) {
-		this.carPo = carPo;
+		this.carPO = carPo;
 	}
 	public String getListPicUrl() {
 		return listPicUrl;
@@ -47,52 +47,51 @@ public class CarVO extends CarPO{
 	@Override
 	public int getCarId() {
 		// TODO Auto-generated method stub
-		return super.getCarId();
+		return carPO.getCarId();
 	}
 	@Override
 	public String getCarBrand() {
-		// TODO Auto-generated method stub
-		return super.getCarBrand();
+		return carPO.getCarBrand();
 	}
 	@Override
 	public String getCarModel() {
 		// TODO Auto-generated method stub
-		return super.getCarModel();
+		return carPO.getCarModel();
 	}
 	@Override
 	public double getCarPrice() {
 		// TODO Auto-generated method stub
-		return super.getCarPrice();
+		return carPO.getCarPrice();
 	}
 	@Override
 	public String getCarType() {
 		// TODO Auto-generated method stub
-		return super.getCarType();
+		return carPO.getCarType();
 	}
 	@Override
 	public String getCarPower() {
 		// TODO Auto-generated method stub
-		return super.getCarPower();
+		return carPO.getCarPower();
 	}
 	@Override
 	public String getCarGear() {
 		// TODO Auto-generated method stub
-		return super.getCarGear();
+		return carPO.getCarGear();
 	}
 	@Override
 	public String getCarEffc() {
 		// TODO Auto-generated method stub
-		return super.getCarEffc();
+		return carPO.getCarEffc();
 	}
 	@Override
 	public String getCarFeature() {
 		// TODO Auto-generated method stub
-		return super.getCarFeature();
+		return carPO.getCarFeature();
 	}
 	@Override
 	public String getCarSpec() {
 		// TODO Auto-generated method stub
-		return super.getCarSpec();
+		return carPO.getCarSpec();
 	}
 	
 }

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>find</title>
+<link rel="stylesheet" type="text/css" href="css/component.css" />
 </head>
 <body>
 <%@include file="HeadPage.jsp"%>
@@ -232,5 +233,6 @@
 		</div>
 		<div class="clearfix"></div>
 <%@include file="TailPage.jsp"%>
+<script src="js/bootstrap.js"></script>
 </body>
 </html>

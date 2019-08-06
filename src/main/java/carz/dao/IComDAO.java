@@ -16,8 +16,14 @@ public interface IComDAO {
 	public List<CommodityPO> findByAddress(int currPageNo, int number,
 			String str);// 所在地查询
 	public List<CommodityPO> findBystatus(int currPageNo, int number, int str);// 状态查询
+	public String findCarNameIdByComId(int id);
+	public String findStateByState(int buyState);
 	public List<CommodityPO> findByAll(int currPageNo, String address,
-			List<String> brandList, Double budget,
-			List<String> modelList, String color, String power, String gear,
+			String[] brand, Double budget,
+			String[] model, String color, String power, String gear,
+			int state);
+	public int comCountByAll(int currPageNo, String address,
+			String[] brand, Double budget,
+			String[] model, String color, String power, String gear,
 			int state);
 }

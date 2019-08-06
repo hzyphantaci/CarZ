@@ -32,6 +32,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,500,700,300'
 	rel='stylesheet' type='text/css'>
 <!--//web-fonts-->
+<script type="text/javascript">
+    $(function(){
+    	$("#email1").change(function(){
+    		var val = $(this).val();
+    		val = $.trim(val);
+    		if(val!=""){
+    			var url = "${pageContext.request.contextPath}/VerificationServlet";
+    			var args = {"email1":val,"time":new Date(),"fromPage":"1"};
+    			$.post(url,args,function(data){
+    				$("#message").html(data);
+    			});
+    		}
+    	});
+    });
+    $(function(){
+    	$("#password2").change(function(){
+    		var val2 = $(this).val();
+    		var val1 = $("#password1").val();
+    		val1 = $.trim(val1);
+    		val2 = $.trim(val2);
+    		if(val1!=""&&val2!=""){
+    			var url = "${pageContext.request.contextPath}/VerificationServlet";
+    			var args = {"val1":val1,"val2":val2,"time":new Date(),"fromPage":"2"};
+    			$.post(url,args,function(data){
+    				errorLogin(data);
+    			});
+    		}
+    	});
+    });
+    $(function(){
+    	$("#loginButton").click(function(){
+    		var emailVal = $("#email2").val();
+    		var passWordVal=$("#password3").val();
+    		var url = "${pageContext.request.contextPath}/VerificationServlet";
+			var args = {"passWordVal":passWordVal,"emailVal":emailVal,"time":new Date(),"fromPage":"3"};
+			$.post(url,args,function(data){
+				errorLogin(data);
+			});
+    	});
+    });
+   
+    function errorLogin(data){
+    	switch(data){
+    	case "1":
+    		$("#divLogin2").html("<font color='red'>账号错误</font>");
+    	     break;
+    	case "2":
+    		window.location.href="${pageContext.request.contextPath}/LoginServlet?email="+$("#email2").val();
+    	     break;
+    	case "3":
+    		$("#divLogin2").html("<font color='red'>密码错误</font>");
+    	}
+    }
+</script>
+<style type="text/css">
+   #loginButton{
+         width:80px;
+         height:40px;
+         background-color:#FFA500;
+         border: none;
+         color:white;
+    }
+</style>
 </head>
 <script src="js/classie.js"></script>
 <body>
@@ -163,7 +226,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div></li>
 						<li style="width: 60px"><div id="userName" class="tag"
 								style="position: relative; top: 5px; left: 40px; display: none">
-								<a href="#"></a>
+								<a href="PersonnelOrderServlet"></a>
 							</div></li>
 						<li style="width: 50px"><div id="zhuxiao" class="tag"
 								style="position: relative; top: 5px; left: 20px; display: none">
@@ -177,16 +240,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<h3>登录</h3>
 									<div class="login-inner">
 										<div class="login-top">
-											<form action="LoginServlet" method="post">
-												<input type="text" name="email" class="email"
-													placeholder="Email" required="" /> <input type="password"
-													name="password" class="password" placeholder="Password"
-													required="" /> <input type="checkbox" id="brand" value="">
+											<form  method="post" >
+												<input type="text" name="email" id="email2" class="email" placeholder="Email" required="" /> 
+												<div id="divLogin1"></div>
+												<input type="password" name="password" id="password3" class="password" placeholder="Password" required="" />
+												<div id="divLogin2"></div>
+												<input type="checkbox" id="brand" value="">
 												<label for="brand"><span></span> 记住我的信息</label>
 												<div class="login-bottom">
 													<ul>
 														<li><a href="#">忘记密码?</a></li>
-														<li><input type="submit" value="登录" /></li>
+														<li><input id="loginButton" type="button" value="登录" /></li>
 														</br>
 													</ul>
 												</div>
@@ -255,9 +319,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</select>
 					</div>
 					<div class="section_room">
-						<select id="country" onchange="change_country(this.value)"
+						<select id="country" 
 							class="frm-field required" name="budget">
-							<option value="all" style="display: none" disabled selected>预算
+							<option value="" style="display: none" disabled selected>预算
 							</option>
 							<option value="all">不限</option>
 							<option value="5">5万</option>
@@ -300,15 +364,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="modal-body about">
 					<div class="login-top sign-top one">
 						<form action="RegistServlet" method="post">
-							<input type="text" name="name" class="name active"
-								placeholder="用户名" required=""> 
-							<input type="text"
-								name="email" class="email" placeholder="E-mail" required="">
-							<input type="password" name="password" class="password"
-								placeholder="密码" required=""> 
-							<input type="password"
-								name="rePassword" class="password" placeholder="请再输入一次密码"
-								required="">
+							<input type="text" name="name"  class="name active" placeholder="用户名" required=""> 
+							<input type="text" name="email" id="email1" class="email" placeholder="E-mail" required="">
+							<div id="message"></div>
+							<input type="password" name="password" id="password1" class="password" placeholder="密码" required=""> 
+							<input type="password" name="rePassword" id="password2" class="password" placeholder="请再输入一次密码" required="">
+							<div id="passwordMessage"></div>
 							<input type="checkbox" id="brand1" value="">
 							<label for="brand1"><span></span> 我同意条款和条件</label>
 							<div class="login-bottom one">

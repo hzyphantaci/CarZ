@@ -7,4 +7,5 @@ import carz.po.CityPO;
 public interface ICityDAO {
     public List<CityPO> searchCitys();
     public List<String> searchCitysName();
+    public CityPO searchCitysUrl(String country);
 }

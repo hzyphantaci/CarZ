@@ -7,20 +7,21 @@ import org.junit.Test;
 
 import carz.dao.DAOFactory;
 import carz.dao.IComDAO;
+import carz.po.CommodityPO;
 
 public class TestComDAOImpl {
-  @Test
-  public void testFindCarsByAll() {
-	  IComDAO dao = DAOFactory.buildDAOFactory().createCommodityDAO();
-	 // System.out.println(dao.findAllCar(1,1).size());
-	  List<String> brandList = new ArrayList<String>();
-	  brandList.add("宝马");
-	  brandList.add("奔驰");
-	  List<String> typeList = new ArrayList<String>();
-	  typeList.add("中型轿车");
-	  typeList.add("紧凑型");
-	  
-	  dao.findByAll(1, "长沙", brandList, 2.98, typeList, "红色", "手动挡", "汽油",1);
-	  
-  }
+	@Test
+	public void testFindCarsByAll() {
+		IComDAO dao = DAOFactory.buildDAOFactory().createCommodityDAO();
+		// System.out.println(dao.findAllCar(1,1).size());
+		String[] brand = {"宝马", "奔驰"};
+		String[] type = {"中型轿车", "紧凑型"};
+		// List<CommodityPO> list = dao.findByAll(1, "长沙", brand, 0.0, type,
+		// null,null,null,1);
+//		List<CommodityPO> list = dao.findByAll(0, "", null, 0.0, null, null,
+//				null, null, 0);
+//		System.out.println(list.size());
+		int page = dao.comCountByAll(19, "", null, 0.0, null, "", "", "", 0);
+		System.out.println(page);
+	}
 }

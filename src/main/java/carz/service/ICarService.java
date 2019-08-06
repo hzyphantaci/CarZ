@@ -9,4 +9,6 @@ public interface ICarService {
      public CarVO searchCarById(int fdId);
      public List<String> searchBrands();
      public List<String> searchPowers();
+	 public List<String> searchModels();
+	 public List<String> searchTypes();
 }

@@ -32,9 +32,11 @@ public class MainSearchServlet extends HttpServlet {
 		ICarService carService = (ICarService) ServiceFactory.buildFactory()
 				.createCarService();
 		ICityDAO dao = DAOFactory.buildDAOFactory().createCityDAO();
+		List<String> typeList = carService.searchTypes();
 		List<String> brandList = carService.searchBrands();
 		List<String> powerList = carService.searchPowers();
 		List<String> citysNameList = dao.searchCitysName();
+		request.setAttribute("typeList", typeList);
 		request.setAttribute("brandList", brandList);
 		request.setAttribute("powerList", powerList);
 		request.setAttribute("citysNameList", citysNameList);
