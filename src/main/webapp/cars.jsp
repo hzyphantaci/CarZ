@@ -76,11 +76,17 @@
 			success : function(result) {
 				$("#products").html(result);
 			    var pageCount = $("#pageCount").val();
-			    var page ="<ul><li><a class=\"frist firstPage\" href=\"javascript:void(0);\">上一页</a></li>";
+			    var pageNo = 1;
+			    if (_page===undefined) {pageNo=1}else{pageNo=_page};
+			    var page ="<ul><li><a class=\"frist firstPage\" href=\"#searchBox\" onclick=\"ConditionsChange("+(pageNo-1)+")\">上一页</a></li>";
 			    for(var i=1;i<=pageCount;i++){
-			    	page+=("<li><a href=\"javascript:void(0);\" onclick=\"ConditionsChange("+i+")\">"+i+"</a></li>");
+			    	if(i==pageNo){
+			    	page+=("<li><a style=\"background-color:#E16B5B;color:white\" href=\"#searchBox\" onclick=\"ConditionsChange("+i+")\">"+i+"</a></li>");
+		            }else{
+			    	page+=("<li><a href=\"#searchBox\" onclick=\"ConditionsChange("+i+")\">"+i+"</a></li>");
+			    	}
 			    }
-			    page+="<li><a class=\"last\" href=\"javascript:void(0);\">下一页</a></li><div class=\"clearfix\"></div>";
+			    page+="<li><a class=\"frist firstPage\" href=\"#searchBox\" onclick=\"ConditionsChange("+(pageNo+1)+")\">下一页</a></li></div>";
 			    $("#pageBlock").html(page);
 			}
 		});
@@ -110,7 +116,7 @@
 			<!--/search-car-inner -->
 			<div class="search-car-inner w3l">
 				<!--/search-car-left-nav -->
-				<div class="col-md-3 search-car-left-sidebar">
+				<div class="col-md-3 search-car-left-sidebar" id="searchBox">
 					<section class="sky-form">
 						<h4>Price range</h4>
 						<div class="range">

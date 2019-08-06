@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f"%> 
     <c:forEach items="${comList}" var="com">
 	<div class="item  col-xs-4 col-lg-4">
 		<div class="thumbnail">
@@ -24,7 +25,7 @@
 						<p class="listing-item-kms">
 							<span class="slkms">${com.comMileage}&nbsp;km</span><span
 								class="margin-left5 margin-right5">|</span><span class="fuel">${com.carGear}</span><span
-								class="margin-left5 margin-right5">|</span><span>2019</span>
+								class="margin-left5 margin-right5">|</span><span><f:formatDate pattern="yyyy" value="${com.comDate }" type="both"/> </span>
 						</p>
 						<p class="listing-item-area">
 							<span class="cityname">${com.comAddress}</span>
@@ -35,7 +36,7 @@
 				<div class="clearfix"></div>
 				<div class="list-form">
 					<div class="get-one">
-						<a href="used_cars.jsp">查看本车详情<a>
+						<a href="CarDetailServlet?comId=${com.carId }">查看本车详情<a>
 					</div>
 					<div class="clearfix"></div>
 				</div>
