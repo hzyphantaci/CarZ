@@ -6,6 +6,7 @@ import java.util.List;
 import carz.dao.DAOFactory;
 import carz.dao.IComDAO;
 import carz.dao.IPictureDAO;
+import carz.dao.IStatusDAO;
 import carz.po.CarPO;
 import carz.po.CommodityPO;
 import carz.po.PicPO;
@@ -17,6 +18,7 @@ import carz.vo.CommodityVO;
 
 public class CommodityServiceImpl implements ICommodityService {
 	private IComDAO comDAO = DAOFactory.buildDAOFactory().createCommodityDAO();
+	private IStatusDAO statusDAO = DAOFactory.buildDAOFactory().createStatusDAO();
 	private IPictureDAO picDAO = DAOFactory.buildDAOFactory().createPictureDAO();
 	private ICarService carService = ServiceFactory.buildFactory().createCarService();
 	@Override
@@ -51,7 +53,7 @@ public class CommodityServiceImpl implements ICommodityService {
 			currPageNo = pageNumber;
 		}
 		List<CommodityVO> voList = new ArrayList<CommodityVO>();
-		System.out.println("serviceCurrPageNo:"+currPageNo);
+		//System.out.println("serviceCurrPageNo:"+currPageNo);
 		List<CommodityPO> poList = comDAO.findByAll(currPageNo, address, brand, budget, type, null,power,gear,state);
 		for(CommodityPO po:poList) {
 			CommodityVO vo = new CommodityVO();
@@ -85,6 +87,18 @@ public class CommodityServiceImpl implements ICommodityService {
 			pageNumber++;
 		}
 		return pageNumber;
+	}
+	@Override
+	public CommodityVO findByComId(int comId) {
+		CommodityPO po= comDAO.findById(comId);
+		CommodityVO vo = new CommodityVO();
+		vo.setComPo(po);
+		vo.setListPicUrl(picDAO.findPicturesByComId(po.getComId(), 2).get(0).getPicUrl());
+		vo.setCarPo(carService.searchCarById(po.getCarId()));
+		if(po.getComState()==2) {
+			vo.setStatusPO(statusDAO.findStatusByComId(comId));
+		}
+		return vo;
 	}
 
 }

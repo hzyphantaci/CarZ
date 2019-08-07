@@ -27,7 +27,7 @@ public class DAOFactory {
 	}
 	private Object createObject(String clsName) throws Exception {
 		Object obj = null;
-		System.out.println(clsName);
+	    //System.out.println(clsName);
 		Class cls = Class.forName(clsName);
 		obj = cls.newInstance();
 		return obj;
@@ -93,6 +93,17 @@ public class DAOFactory {
 		try {
 			dao = (ISellDAO) this
 					.createObject(this.props.getProperty("sellDAO"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return dao;
+	}
+	public IStatusDAO  createStatusDAO() {
+		IStatusDAO dao = null;
+		try {
+			dao = (IStatusDAO) this
+					.createObject(this.props.getProperty("statusDAO"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

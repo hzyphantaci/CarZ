@@ -30,7 +30,7 @@ public class CarsListServlet extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String currPageNoStr = request.getParameter("page");
-		System.out.println("currPageNo："+currPageNoStr);
+		//System.out.println("currPageNo："+currPageNoStr);
 		String address = request.getParameter("address");
 		String budgetStr = request.getParameter("budget");
 		String[] type = request.getParameterValues("type[]");
@@ -42,7 +42,7 @@ public class CarsListServlet extends HttpServlet {
 		List<CommodityVO> list =service.findByAll(currPageNoStr, address, brand, budgetStr, type, null,power,gear,state);
 		int pageCount = service.findPageCountByAll(currPageNoStr, address, brand, budgetStr, type, null,power,gear,state);
 		//System.out.println("pageCount:"+pageCount);
-		System.out.println("listSize:"+list.size());
+		//System.out.println("listSize:"+list.size());
 		request.setAttribute("comList", list);
 		request.setAttribute("pageCount", pageCount);
 		request.getRequestDispatcher("searchList.jsp").forward(request,

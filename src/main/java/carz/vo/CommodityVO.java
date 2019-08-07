@@ -5,6 +5,7 @@ import java.util.List;
 
 import carz.po.CarPO;
 import carz.po.CommodityPO;
+import carz.po.StatusPO;
 
 /**
  * @author user
@@ -13,10 +14,14 @@ import carz.po.CommodityPO;
 public class CommodityVO extends CommodityPO{
 	private CarVO carVO;
 	private CommodityPO comPo;
+	private StatusPO statusPO;
 	private String listPicUrl;
 	private List<String> goodsPicUrl;
 	public CommodityPO getComPo() {
 		return comPo;
+	}
+	public void setStatusPO(StatusPO statusPO) {
+		this.statusPO=statusPO;
 	}
 	public void setComPo(CommodityPO comPo) {
 		this.comPo = comPo;
@@ -106,9 +111,7 @@ public class CommodityVO extends CommodityPO{
 		// TODO Auto-generated method stub
 		return comPo.getComStatus();
 	}
-	
-
-	
+		
 	public String getCarBrand() {
 		// TODO Auto-generated method stub
 		return carVO.getCarBrand();
@@ -153,4 +156,36 @@ public class CommodityVO extends CommodityPO{
 		// TODO Auto-generated method stub
 		return carVO.getCarSpec();
 	}
+	
+	public String getStatusEngine() {
+		return statusPO.getStatusEngine();
+	}
+	public String getStatusFacade() {
+		return statusPO.getStatusFacade();
+	}
+	public String getStatusAc() {
+		return statusPO.getStatusAc();
+	}
+	public String getStatusInside() {
+		return statusPO.getStatusInside();
+	}
+	public String getStatusBrake() {
+		return statusPO.getStatusBrake();
+	}
+	public String getStatusElectricals() {
+		return statusPO.getStatusElectricals();
+	}
+	public String getStatusTyre() {
+		return statusPO.getStatusTyre();
+	}
+	public String getStatusCell() {
+		return statusPO.getStatusCell();
+	}
+	public String getStatusSeat() {
+		return statusPO.getStatusSeat();
+	}
+	public String getStatusAll() {
+		return statusPO.getStatusAll();
+	}
+
 }

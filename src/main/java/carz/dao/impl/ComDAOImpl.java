@@ -49,11 +49,11 @@ public class ComDAOImpl implements IComDAO {
 		DBConnection dbConn = DBConnection.getInstance();
 		try {
 			conn = dbConn.getConnection();
-			String sql = "select * from carz_car where com_id = '?' ";
+			String sql = "select * from carz_commodity where com_id = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(0, id);
+			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
-			if (rs != null && rs.next()) {
+			if (rs != null) {
 				list = new ArrayList<CarPO>();
 				compo = new CommodityPO();
 				compo = ResultSet2ListUtil.putResult(rs, CommodityPO.class)
@@ -343,7 +343,7 @@ public class ComDAOImpl implements IComDAO {
 				list = new ArrayList<CommodityPO>();
 				list = ResultSet2ListUtil.putResult(rs, CommodityPO.class);
 			}
-			 System.out.println(sql);
+			// System.out.println(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

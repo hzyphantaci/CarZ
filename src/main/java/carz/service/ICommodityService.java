@@ -13,4 +13,5 @@ public interface ICommodityService {
     public int findPageCountByAll(String currPageNoStr, String address,
 			String[] brand, String budgetStr, String[] type, String color,
 			String power, String gear, String stateStr);
+    public CommodityVO findByComId(int comId);
 }

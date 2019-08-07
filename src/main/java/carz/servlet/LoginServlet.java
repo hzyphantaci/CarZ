@@ -42,7 +42,8 @@ public class LoginServlet extends HttpServlet {
 		//request.getRequestDispatcher("IndexPage.jsp").forward(request, response);
 		pw.write(
 				"<script type='text/javascript'>alert('登陆成功');"
-						+ "window.location='"+url+"'</script>");
+						+ "window.location='"+url+"'</script>"
+						);
 //	} else {
 //		pw.write(
 //			"<script type='text/javascript'>alert('用户名或密码错误，请重新输入');"

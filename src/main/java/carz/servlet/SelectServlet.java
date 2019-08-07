@@ -28,7 +28,7 @@ public class SelectServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		request.setCharacterEncoding("utf-8");
 		String country = request.getParameter("country");
-		System.out.println(country);
+		//System.out.println(country);
 		ICityDAO city =DAOFactory.buildDAOFactory().createCityDAO();
 		CityPO cityPO = city.searchCitysUrl(country);
 		String result = cityPO.getCityUrl();

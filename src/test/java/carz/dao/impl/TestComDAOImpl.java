@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import carz.dao.DAOFactory;
 import carz.dao.IComDAO;
+import carz.dao.IStatusDAO;
 import carz.po.CommodityPO;
 
 public class TestComDAOImpl {
@@ -23,5 +24,11 @@ public class TestComDAOImpl {
 //		System.out.println(list.size());
 		int page = dao.comCountByAll(19, "", null, 0.0, null, "", "", "", 0);
 		System.out.println(page);
+	}
+	@Test
+	public void testStatusDAO() {
+		IStatusDAO dao = DAOFactory.buildDAOFactory().createStatusDAO();
+		//System.out.println(dao.findStatusByComId(7).toString());
+		
 	}
 }

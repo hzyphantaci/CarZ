@@ -6,7 +6,7 @@
 	<div class="item  col-xs-4 col-lg-4">
 		<div class="thumbnail">
 			<a href="#" data-toggle="modal" data-target="#myModal6"><img
-				class="group list-group-image" style="width:400px;height:270px" src="${com.listPicUrl}" alt="Catchy Carz"></a>
+				class="group list-group-image" style="width:400px;height:270px" src="${com.listPicUrl}" alt="${com.carBrand}  ${com.carModel}"></a>
 			<div class="table-text">
 				<h4>
 					<a href="used_cars.jsp" title="Maruti Suzuki 800 AC"

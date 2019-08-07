@@ -370,8 +370,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input type="password" name="password" id="password1" class="password" placeholder="密码" required=""> 
 							<input type="password" name="rePassword" id="password2" class="password" placeholder="请再输入一次密码" required="">
 							<div id="passwordMessage"></div>
+							<input type="text" name="name" style="width:352px" class="veriCode active" placeholder="验证码" required=""> 				
+							<input type="button" style="font-size: 0.9em;color: #fff;background:#E16B5B;outline: none;
+                                    border: none;cursor: pointer;padding: 10px 20px;" value="获取验证码">
 							<input type="checkbox" id="brand1" value="">
-							<label for="brand1"><span></span> 我同意条款和条件</label>
+							<label for="brand1"><span></span> 我同意所有条款和条件</label>
 							<div class="login-bottom one">
 								<ul>
 									<li><a href="#"></a></li>
