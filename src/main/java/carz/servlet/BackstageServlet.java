@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import carz.service.ICarService;
 import carz.service.ISellService;
+import carz.service.IUserService;
 import carz.service.ServiceFactory;
+import carz.vo.BuyOrderVO;
 import carz.vo.CarVO;
 import carz.vo.SellVO;
+import carz.vo.SubscribeVO;
 
 
 /**
@@ -49,12 +52,15 @@ public class BackstageServlet extends HttpServlet {
 		int state06 = 0;
 //		 * 3 调用后面的Service，获得当前页面要显示的所有信息的List
 		ISellService sellService = ServiceFactory.buildFactory().createSellService();
+		IUserService userService = ServiceFactory.buildFactory().createUserService();
+		List<BuyOrderVO> buyList = userService.findAllBuyOrderByStateService(pageNo, 1);
 		List<SellVO> sellList01 = sellService.searchSells(pageNo, state);
 		List<SellVO> sellList02 = sellService.searchSells(pageNo, state02);
 		List<SellVO> sellList03 = sellService.searchSells(pageNo, state03);
 		List<SellVO> sellList04 = sellService.searchSells(pageNo, state04);
 		List<SellVO> sellList05 = sellService.searchSells(pageNo, state05);
 		List<SellVO> sellList06 = sellService.searchSells(pageNo, state06);
+		List<SubscribeVO> subList = userService.findAllSubscribeOrderByState(pageNo, state);
 //		 * 3.5 将List设置在request中
 		request.setAttribute("buttonNumb", buttonNumb);
 		request.setAttribute("sellList01", sellList01);
@@ -63,6 +69,8 @@ public class BackstageServlet extends HttpServlet {
 		request.setAttribute("sellList04", sellList04);
 		request.setAttribute("sellList05", sellList05);
 		request.setAttribute("sellList06", sellList06);
+		request.setAttribute("subList", subList);
+		request.setAttribute("buyList", buyList);
 //		 * 4 转向到backstage.jsp显示li
 		request.getRequestDispatcher("backstage.jsp").forward(request, response);
 	}

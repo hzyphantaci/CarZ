@@ -16,6 +16,76 @@ import carz.po.UserPO;
 import carz.util.ResultSet2ListUtil;
 
 public class UserDAOImpl implements IUserDAO {
+	public String findEmailById(int id) {
+		String email = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select user_email from carz_user where user_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				email = rs.getString("user_email");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return email;
+	}
+
+	public void addBuyOrder(String code, int comId, int userId,
+			int buyConcactWay, String buyConcactAddress, String date,
+			String appointmentTime) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "insert into carz_buy_order values ( 0,?,?,?,?,?,?,?,1)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, code);
+			count = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+	}
+	public List<BuyOrderPO> findAllBuyOrderByStateAndId(int currPageNo,
+			int number, int state, int id) {
+		List<BuyOrderPO> buyList = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select * from carz_buy_order where buy_state = ? and user_id = ? limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			pstmt.setInt(2, id);
+			pstmt.setInt(3, currPageNo * number);
+			pstmt.setInt(4, number);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				buyList = new ArrayList<BuyOrderPO>();
+				buyList = ResultSet2ListUtil.putResult(rs, BuyOrderPO.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return buyList;
+	}
 	public List<UserPO> findAllEmail() {
 		List<UserPO> userList = null;
 		Connection conn = null;
@@ -31,7 +101,7 @@ public class UserDAOImpl implements IUserDAO {
 			if (rs != null) {
 				userList = new ArrayList<UserPO>();
 				while (rs.next()) {
-					user=new UserPO();
+					user = new UserPO();
 					user.setUserEmail(rs.getString("user_email"));
 					userList.add(user);
 				}
@@ -138,7 +208,7 @@ public class UserDAOImpl implements IUserDAO {
 	}
 
 	public String findUserNameById(int id) {
-		String namess =null;
+		String namess = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -149,8 +219,8 @@ public class UserDAOImpl implements IUserDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
-			if (rs!=null && rs.next()) {
-			  namess = rs.getString("user_name");
+			if (rs != null && rs.next()) {
+				namess = rs.getString("user_name");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,7 +230,8 @@ public class UserDAOImpl implements IUserDAO {
 		return namess;
 	}
 
-	public List<SellPO> findAllSellOrderById(int currPageNo, int number, int id) {
+	public List<SellPO> findAllSellOrderById(int currPageNo, int number,
+			int id) {
 		List<SellPO> sellList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -185,7 +256,8 @@ public class UserDAOImpl implements IUserDAO {
 		}
 		return sellList;
 	}
-	public List<BuyOrderPO> findAllBuyOrderByState(int currPageNo, int number, int state){
+	public List<BuyOrderPO> findAllBuyOrderByState(int currPageNo, int number,
+			int state) {
 		List<BuyOrderPO> buyList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -215,14 +287,14 @@ public class UserDAOImpl implements IUserDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int count =0;
+		int count = 0;
 		DBConnection dbConn = DBConnection.getInstance();
 		try {
 			conn = dbConn.getConnection();
 			String sql = "update carz_buy_order set buy_state = 0 where buy_code = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, code);
-			count=pstmt.executeUpdate();
+			count = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -230,19 +302,19 @@ public class UserDAOImpl implements IUserDAO {
 		}
 	}
 	public Date findDateByBuyId(int id) {
-		Date date=null;
+		Date date = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int count =0;
+		int count = 0;
 		DBConnection dbConn = DBConnection.getInstance();
 		try {
 			conn = dbConn.getConnection();
 			String sql = "select buy_date from carz_buy_order where buy_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				date = rs.getDate("buy_date");
 			}
 		} catch (Exception e) {
@@ -253,19 +325,19 @@ public class UserDAOImpl implements IUserDAO {
 		return date;
 	}
 	public Date findAppointmentTimeByBuyId(int id) {
-		Date date=null;
+		Date date = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int count =0;
+		int count = 0;
 		DBConnection dbConn = DBConnection.getInstance();
 		try {
 			conn = dbConn.getConnection();
 			String sql = "select buy_appointment_time from carz_buy_order where buy_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
 				date = rs.getDate("buy_appointment_time");
 			}
 		} catch (Exception e) {
@@ -275,6 +347,5 @@ public class UserDAOImpl implements IUserDAO {
 		}
 		return date;
 	}
-
 
 }

@@ -53,6 +53,12 @@ body {
 		}else if(${buttonNumb}==6){
 			$("table").hide();
 			$("#quxiao").show();
+		}else if(${buttonNumb}==7){
+			$("table").hide();
+			$("#subOrder").show();
+		}else if(${buttonNumb}==7){
+			$("table").hide();
+			$("#GMBuyOrder").show();
 		}
 		
 		
@@ -81,6 +87,14 @@ body {
 			$("table").hide();
 			$("#quxiao").show();
 		});
+		$("#b7").click(function() {
+			$("table").hide();
+			$("#subOrder").show();
+		});
+		$("#b8").click(function() {
+			$("table").hide();
+			$("#GMBuyOrder").show();
+		});
 	});
 </script>
 <link rel="stylesheet" type="text/css" href="css/component.css" />
@@ -108,6 +122,8 @@ body {
 		<button class="btn btn-info" id="b4">已上架订单</button>
 		<button class="btn btn-info" id="b5">已下架订单</button>
 		<button class="btn btn-info" id="b6">已取消订单</button>
+		<button class="btn btn-info" id="b7">全平台新闻订阅</button>
+		<button class="btn btn-info" id="b8">用户订单</button>
 
 		<table class="table-bordered  table table-striped table" id="shenhe">
 			<tr>
@@ -259,8 +275,52 @@ body {
 					</td>
 				</tr>
 			</c:forEach>
-
 		</table>
+		<table class="table-bordered  table table-striped table" id="subOrder">
+			<tr>
+				<td>订阅用户</td>
+				<td>用户邮箱</td>
+				<td>订阅内容</td>
+				<td>状态</td>
+				<td>
+				<button class="btn btn-success"
+							onclick="window.location.href='EmailServlet?button=7'">一键发送</button>
+                </td>
+			</tr>
+			<c:forEach items="${subList}" var="sub">
+				<tr>
+					<td>${sub.userName }</td>
+					<td>${sub.userEmail }</td>
+					<td>${sub.carBrand }${sub.carModel }</td>
+					<td>已订阅</td>
+					<td>
+					<button class="btn btn-success"
+							onclick="window.location.href='ExamineServlet?button=7&email=${sub.userEmail}'">发送新闻</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+		
+		<table class="table-bordered  table table-striped table" id="GMBuyOrder">
+			<tr>
+				<td>用户</td>
+				<td>商品名</td>
+				<td>状态</td>
+				<td>操作</td>
+			</tr>
+			<c:forEach items="${buyList}" var="buy">
+				<tr>
+					<td>${buy.userName }</td>
+					<td>${buy.carBrand }${buy.carName }</td>
+					<td>已订阅</td>
+					<td>
+					<button class="btn btn-warning"
+							onclick="window.location.href='ExamineServlet?button=8'">交易完成</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+		
 		<nav aria-label="Page navigation">
 			<ul class="pagination">
 				<li><a href="#" aria-label="Previous"> <span

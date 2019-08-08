@@ -61,5 +61,19 @@ public class ServiceFactory {
 			throw new RuntimeException(e);
 		}
 	}
+	public INewsService createNewsService() {
+		try {
+			return (INewsService)this.createObject(props.getProperty("newsService"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public INewsDetailService createNewsDetailService() {
+		try {
+			return (INewsDetailService)this.createObject(props.getProperty("newsDetailService"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
     
 }

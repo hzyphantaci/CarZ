@@ -452,47 +452,52 @@ public class CarDAOImpl implements ICarDAO {
 		}
 		return brand;
 	}
-
-	// public List<CarPO> searchCurrPageCars(int currPageNo, int number, String
-	// keyword) {
-	// List<CarPO> foodList = null;
-	// Connection conn = null;
-	// PreparedStatement pstmt = null;
-	// ResultSet rs = null;
-	// DBConnection dbConn = DBConnection.getInstance();
-	// try {
-	// conn = dbConn.getConnection();
-	// String sql = "select * from carz_car";
-	// // 判断是否有查询条件，如果有，就在sql后添加where语句
-	// if (keyword != null && !(keyword = keyword.trim()).equals("")) {
-	// sql += " where fd_name like ?";
-	// }
-	// sql += " limit ?,?";
-	//
-	// pstmt = conn.prepareStatement(sql);
-	// currPageNo--;
-	// // 判断是否有条件，设置占位符信息
-	// if (keyword != null && !keyword.equals("")) {
-	// pstmt.setString(1, keyword);
-	// pstmt.setInt(2, currPageNo * number);
-	// pstmt.setInt(3, number);
-	// } else {
-	// pstmt.setInt(1, currPageNo * number);
-	// pstmt.setInt(2, number);
-	// }
-	// rs = pstmt.executeQuery();
-	// if (rs != null) {
-	// foodList = new ArrayList<CarPO>();
-	// // initialVector(rs, list);
-	// foodList = ResultSet2ListUtil.putResult(rs, CarPO.class);
-	// }
-	//
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// } finally {
-	// dbConn.close(conn, pstmt, rs);
-	// }
-	// return foodList;
-	// }
+	@Override
+	public List<String> searchModelsByBrand(String brand) {
+		List<String> list = new ArrayList<String>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select distinct car_model from carz_car where car_brand = ? order by convert(car_model using gbk)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, brand);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					list.add(rs.getString("car_model"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+	public String findBrandByCarId(int carId) {
+		String brand = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select car_brand from carz_car where car_id = ?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, carId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				brand = rs.getString("car_brand");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return brand;
+	}
 
 }

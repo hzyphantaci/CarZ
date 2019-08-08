@@ -27,7 +27,7 @@ public class DAOFactory {
 	}
 	private Object createObject(String clsName) throws Exception {
 		Object obj = null;
-	    //System.out.println(clsName);
+		// System.out.println(clsName);
 		Class cls = Class.forName(clsName);
 		obj = cls.newInstance();
 		return obj;
@@ -47,15 +47,14 @@ public class DAOFactory {
 	public ICarDAO createCarDAO() {
 		ICarDAO dao = null;
 		try {
-			dao = (ICarDAO) this
-					.createObject(this.props.getProperty("carDAO"));
+			dao = (ICarDAO) this.createObject(this.props.getProperty("carDAO"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 		return dao;
 	}
-	public IPictureDAO  createPictureDAO() {
+	public IPictureDAO createPictureDAO() {
 		IPictureDAO dao = null;
 		try {
 			dao = (IPictureDAO) this
@@ -66,18 +65,17 @@ public class DAOFactory {
 		}
 		return dao;
 	}
-	public IComDAO  createCommodityDAO() {
+	public IComDAO createCommodityDAO() {
 		IComDAO dao = null;
 		try {
-			dao = (IComDAO) this
-					.createObject(this.props.getProperty("comDAO"));
+			dao = (IComDAO) this.createObject(this.props.getProperty("comDAO"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 		return dao;
 	}
-	public ICityDAO  createCityDAO() {
+	public ICityDAO createCityDAO() {
 		ICityDAO dao = null;
 		try {
 			dao = (ICityDAO) this
@@ -88,7 +86,7 @@ public class DAOFactory {
 		}
 		return dao;
 	}
-	public ISellDAO  createSellDAO() {
+	public ISellDAO createSellDAO() {
 		ISellDAO dao = null;
 		try {
 			dao = (ISellDAO) this
@@ -99,11 +97,45 @@ public class DAOFactory {
 		}
 		return dao;
 	}
-	public IStatusDAO  createStatusDAO() {
+	public IStatusDAO createStatusDAO() {
 		IStatusDAO dao = null;
 		try {
 			dao = (IStatusDAO) this
 					.createObject(this.props.getProperty("statusDAO"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return dao;
+	}
+
+	public ISubscribeDAO createSubscribeDAO() {
+		ISubscribeDAO dao = null;
+		try {
+			dao = (ISubscribeDAO) this
+					.createObject(this.props.getProperty("subscribeDAO"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return dao;
+	}
+	public INewsDAO  createNewsDAO() {
+		INewsDAO dao = null;
+		try {
+			dao = (INewsDAO) this
+					.createObject(this.props.getProperty("newsDAO"));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		return dao;
+	}
+	public INewsDetailDAO  createNewsDetailDAO() {
+		INewsDetailDAO dao = null;
+		try {
+			dao = (INewsDetailDAO) this
+					.createObject(this.props.getProperty("newsDetailDAO"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

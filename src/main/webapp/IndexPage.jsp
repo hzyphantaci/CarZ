@@ -45,7 +45,7 @@
 									     	 <div class="login-inner2">
 												<h4>Be the first to know</h4>
 											<div class="login-top sign-top">
-												<form>
+												<form action="SubscribeIntoServlet?url=index" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<input type="text" name="phone" class="phone" placeholder="Phone" required=""/>
@@ -99,7 +99,7 @@
 									     	 <div class="login-inner2">
 												<h4>Be the first to know</h4>
 											<div class="login-top sign-top">
-												<form action="#" method="post">
+												<form action="SubscribeIntoServlet?url=index" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<input type="text" name="phone" class="phone" placeholder="Phone" required=""/>
@@ -153,7 +153,7 @@
 									     	 <div class="login-inner2">
 												<h4>Be the first to know</h4>
 											<div class="login-top sign-top">
-												 <form action="#" method="post">
+												 <form action="SubscribeIntoServlet?url=index" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<input type="text" name="phone" class="phone" placeholder="Phone" required=""/>
@@ -197,7 +197,7 @@
 									       <div class="img-grid">
 													<img src="images/f4.jpg" alt="Catchy Carz">
 													<div class="car_description">
-														 <h4><a href="single.jsp"> Ford Mustang GT 350</a></h4>
+														 <h4><a href="MainSearchServlet"> Ford Mustang GT 350</a></h4>
 														 <div class="price"><span class="fa fa-rupee"></span><span class="font25">$ 8000 - $ 11000</span></div>
 														 <p>Estimated Price</p>
 														 <div class="date">June 2016</div>
@@ -212,7 +212,7 @@
 									     	 <div class="login-inner2">
 												<h4><img src="images/rupee.png" alt="Catchy Carz"> Check On-Road Price</h4>
 											<div class="login-top sign-top">
-												 <form action="#" method="post">
+												 <form action="MainSearchServlet" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<div class="section_drop">
@@ -268,7 +268,7 @@
 									     	 <div class="login-inner2">
 												<h4><img src="images/rupee.png" alt="Catchy Carz">  Check On-Road Price</h4>
 											<div class="login-top sign-top">
-												 <form action="#" method="post">
+												 <form action="MainSearchServlet" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<div class="section_drop">
@@ -323,7 +323,7 @@
 									     	 <div class="login-inner2">
 												<h4><img src="images/rupee.png" alt="Catchy Carz">  Check On-Road Price</h4>
 											<div class="login-top sign-top">
-											   <form action="#" method="post">
+											   <form action="MainSearchServlet" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<div class="section_drop">
@@ -383,7 +383,7 @@
 									     	 <div class="login-inner2">
 												<h4><img src="images/rupee.png" alt="Catchy Carz"> Check On-Road Price</h4>
 											<div class="login-top sign-top">
-												 <form action="#" method="post">
+												 <form action="MainSearchServlet" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<div class="section_drop">
@@ -437,7 +437,7 @@
 									     	 <div class="login-inner2">
 												<h4><img src="images/rupee.png" alt="Catchy Carz">  Check On-Road Price</h4>
 											<div class="login-top sign-top">
-												 <form action="#" method="post">
+												 <form action="MainSearchServlet" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<div class="section_drop">
@@ -491,7 +491,7 @@
 									     	 <div class="login-inner2">
 												<h4><img src="images/rupee.png" alt="Catchy Carz">  Check On-Road Price</h4>
 											<div class="login-top sign-top">
-											 <form action="#" method="post">
+											 <form action="MainSearchServlet" method="post">
 													<input type="text" name="name" class="name active" placeholder="Name" required=""/>
 													<input type="text" name="email" class="email" placeholder="Email" required=""/>
 													<div class="section_drop">
@@ -628,7 +628,7 @@
           <div class="bottom-form">
 			<div class="inner-text">
 				
-			 <form action="#" method="post">
+			 <form action="SubscribeIntoServlet?url=index" method="post">
 				<h3>Choose Your Best Car</h3>
 					<div class="best-hot">
 						<h5>Name</h5>
@@ -636,7 +636,7 @@
 					</div>
 					<div class="best-hot">
 						<h5>Email</h5>
-						<input type="text" class="email" placeholder="Email" required="">
+						<input type="text" name="email" class="email" placeholder="Email" required=""/>
 					</div>
 					<div class="section_drop2">
 					<h5>City</h5>

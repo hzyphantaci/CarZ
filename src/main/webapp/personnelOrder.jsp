@@ -41,6 +41,9 @@ body {
 		}else if(${buttonNumb}==2){
 			$("table").hide();
 			$("#sellOrder").show();
+		}else if(${buttonNumb}==3){
+			$("table").hide();
+			$("#subOrder").show();
 		}
 		
 		$("#b1").click(function() {
@@ -50,6 +53,10 @@ body {
 		$("#b2").click(function() {
 			$("table").hide();
 			$("#sellOrder").show();
+		});
+		$("#b3").click(function() {
+			$("table").hide();
+			$("#subOrder").show();
 		});
 	});
 </script>
@@ -74,6 +81,7 @@ body {
 	<div class="div table-responsive">
 		<button class="btn btn-info" id="b1">购买订单</button>
 		<button class="btn btn-info" id="b2">售卖订单</button>
+		<button class="btn btn-info" id="b3">订阅订单</button>
 
 		<table class="table-bordered  table table-striped table" id="buyOrder">
 			<tr>
@@ -117,6 +125,28 @@ body {
 					<td>
 					   <button class="btn btn-success" 
 							onclick="window.location.href='PersonnelOrderConvertServlet?buttonNumb=2&sellId=${sell.sellId}'">取消订单</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+		<table class="table-bordered  table table-striped table"
+			id="subOrder">
+			<tr>
+				<td>订阅邮箱</td>
+				<td>品牌</td>
+				<td>车名</td>
+				<td>状态</td>
+				<td>操作</td>
+			</tr>
+			<c:forEach items="${subList }" var="sub">
+				<tr>
+					<td>${sub.userEmail }</td>
+					<td>${sub.carBrand }</td>
+					<td>${sub.carModel }</td>
+					<td>已订阅</td>
+					<td>
+					   <button class="btn btn-success" 
+							onclick="window.location.href='PersonnelOrderConvertServlet?buttonNumb=3&subscribeId=${sub.subscribeId}&userId=${sub.userId }'">取消订阅</button>
 					</td>
 				</tr>
 			</c:forEach>

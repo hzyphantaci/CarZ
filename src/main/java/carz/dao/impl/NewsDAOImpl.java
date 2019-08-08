@@ -6,84 +6,84 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import carz.dao.IPictureDAO;
+import carz.dao.INewsDAO;
 import carz.db.DBConnection;
-import carz.po.PicPO;
+import carz.po.CarPO;
+import carz.po.NewsPO;
 import carz.util.ResultSet2ListUtil;
 
-public class PictureDAOImpl implements IPictureDAO {
 
-	public List<PicPO> findPicturesByComId(int comId, int picType) {
-		List<PicPO> picList = null;
+public class NewsDAOImpl implements INewsDAO {
+	
+	public List<NewsPO> findByNewsPage(int currPageNo, int number){
+		List<NewsPO> list = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		DBConnection dbConn = DBConnection.getInstance();
 		try {
 			conn = dbConn.getConnection();
-			String sql = "select * from carz_picture where com_id=? and pic_type=?";
+			String sql = "select * from carz_news";
+			sql += " limit ?,?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, comId);
-			pstmt.setInt(2, picType);
+			pstmt.setInt(1, (currPageNo-1) * number);
+			pstmt.setInt(2, number);
 			rs = pstmt.executeQuery();
 			if (rs != null) {
-				picList = new ArrayList<PicPO>();
-				picList = ResultSet2ListUtil.putResult(rs, PicPO.class);
+				list = new ArrayList<NewsPO>();
+				list = ResultSet2ListUtil.putResult(rs, NewsPO.class);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbConn.close(conn, pstmt, rs);
 		}
-		return picList;
+		return list;
 	}
-
-	public List<PicPO> findPicturesByCarId(int carId, int picType) {
-		List<PicPO> picList = null;
+	
+	public int findCount() {
+		int count = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		DBConnection dbConn = DBConnection.getInstance();
 		try {
 			conn = dbConn.getConnection();
-			String sql = "select * from carz_picture where car_id=? and pic_type=?";
+			String sql = "select count(*) from carz_news";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, carId);
-			pstmt.setInt(2, picType);
-			rs = pstmt.executeQuery();
-			if (rs != null) {
-				picList = new ArrayList<PicPO>();
-				picList = ResultSet2ListUtil.putResult(rs, PicPO.class);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			dbConn.close(conn, pstmt, rs);
-		}
-		return picList;
-	}
-	public String findUrlByCarId(int id) {
-		String url = null;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		DBConnection dbConn = DBConnection.getInstance();
-		try {
-			conn = dbConn.getConnection();
-			String sql = "select pic_url from carz_picture where car_id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, id);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				url = rs.getString("pic_url");
+				count = rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbConn.close(conn, pstmt, rs);
 		}
-		return url;
+
+		return count;
 	}
+	public List<NewsPO> findAllNews() {
+		List<NewsPO> list = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DBConnection dbConn = DBConnection.getInstance();
+		try {
+			conn = dbConn.getConnection();
+			String sql = "select * from carz_news";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs != null) {
+				list = new ArrayList<NewsPO>();
+				list = ResultSet2ListUtil.putResult(rs, NewsPO.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbConn.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+
 }

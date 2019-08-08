@@ -56,7 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     			var url = "${pageContext.request.contextPath}/VerificationServlet";
     			var args = {"val1":val1,"val2":val2,"time":new Date(),"fromPage":"2"};
     			$.post(url,args,function(data){
-    				errorLogin(data);
+    				$("#passwordMessage").html(data);
     			});
     		}
     	});
@@ -76,13 +76,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     function errorLogin(data){
     	switch(data){
     	case "1":
-    		$("#divLogin2").html("<font color='red'>账号错误</font>");
+    		$("#divLogin2").html("<font color='red'>密码或者账号错误</font>");
     	     break;
     	case "2":
     		window.location.href="${pageContext.request.contextPath}/LoginServlet?email="+$("#email2").val();
     	     break;
     	case "3":
-    		$("#divLogin2").html("<font color='red'>密码错误</font>");
+    		$("#divLogin2").html("<font color='red'>密码或者账号错误</font>");
     	}
     }
 </script>

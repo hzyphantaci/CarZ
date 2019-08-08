@@ -45,12 +45,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$("#userName").css('display', 'none');
 			$("#zhuxiao").css('display', 'none');
 		}
-		var city = "${sessionScope.city}";
-		if(city!=""){
-			var icon = $("#cityIcon");
-			$("#citySelect").html(icon);
-			$("#cityIcon").after(city);
-		}
 	});
 	function cityChange(cityName){
 		$("#closeCityForm").trigger("click");
@@ -58,36 +52,68 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#citySelect").html(icon);
 		$("#cityIcon").after(cityName);
 	}
+	 $(function(){
+	    	$("#email1").change(function(){
+	    		var val = $(this).val();
+	    		val = $.trim(val);
+	    		if(val!=""){
+	    			var url = "${pageContext.request.contextPath}/VerificationServlet";
+	    			var args = {"email1":val,"time":new Date(),"fromPage":"1"};
+	    			$.post(url,args,function(data){
+	    				$("#message").html(data);
+	    			});
+	    		}
+	    	});
+	    });
+	    $(function(){
+	    	$("#password2").change(function(){
+	    		var val2 = $(this).val();
+	    		var val1 = $("#password1").val();
+	    		val1 = $.trim(val1);
+	    		val2 = $.trim(val2);
+	    		if(val1!=""&&val2!=""){
+	    			var url = "${pageContext.request.contextPath}/VerificationServlet";
+	    			var args = {"val1":val1,"val2":val2,"time":new Date(),"fromPage":"2"};
+	    			$.post(url,args,function(data){
+	    				$("#passwordMessage").html(data);
+	    			});
+	    		}
+	    	});
+	    });
     $(function(){
-    	$("#email1").change(function(){
-    		var val = $(this).val();
-    		val = $.trim(val);
-    		if(val!=""){
-    			var url = "${pageContext.request.contextPath}/Verification";
-    			var args = {"email1":val,"time":new Date(),"fromPage":"1"};
-    			$.post(url,args,function(data){
-    				$("#message").html(data);
-    			});
-    		}
+    	$("#loginButton").click(function(){
+    		var emailVal = $("#email2").val();
+    		var passWordVal=$("#password3").val();
+    		var url = "${pageContext.request.contextPath}/VerificationServlet";
+			var args = {"passWordVal":passWordVal,"emailVal":emailVal,"time":new Date(),"fromPage":"3"};
+			$.post(url,args,function(data){
+				errorLogin(data);
+			});
     	});
     });
-    $(function(){
-    	$("#password2").change(function(){
-    		var val2 = $(this).val();
-    		var val1 = $("#password1").val();
-    		val1 = $.trim(val1);
-    		val2 = $.trim(val2);
-    		if(val1!=""&&val2!=""){
-    			var url = "${pageContext.request.contextPath}/Verification";
-    			var args = {"val1":val1,"val2":val2,"time":new Date(),"fromPage":"2"};
-    			$.post(url,args,function(data){
-    				$("#passwordMessage").html(data);
-    			});
-    		}
-    	});
-    });
-    
+   
+    function errorLogin(data){
+    	switch(data){
+    	case "1":
+    		$("#divLogin2").html("<font color='red'>密码或者账号错误</font>");
+    	     break;
+    	case "2":
+    		window.location.href="${pageContext.request.contextPath}/LoginServlet?email="+$("#email2").val();
+    	     break;
+    	case "3":
+    		$("#divLogin2").html("<font color='red'>密码或者账号错误</font>");
+    	}
+    }
 </script>
+<style type="text/css">
+   #loginButton{
+         width:80px;
+         height:40px;
+         background-color:#FFA500;
+         border: none;
+         color:white;
+    }
+</style>
 </head>
 <body>
 	<!--/banner-section-->
@@ -186,7 +212,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div></li>
 						<li style="width: 60px"><div id="userName" class="tag"
 								style="position: relative; top: 5px; left: 40px; display: none">
-								<a href="#"></a>
+								<a href="PersonnelOrderServlet"></a>
 							</div></li>
 						<li style="width: 50px"><div id="zhuxiao" class="tag"
 								style="position: relative; top: 5px; left: 20px; display: none">
@@ -199,16 +225,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<h3>登录</h3>
 									<div class="login-inner">
 										<div class="login-top">
-											<form action="LoginServlet" method="post">
-												<input type="text" name="email" class="email"
-													placeholder="Email" required="" /> <input type="password"
-													name="password" class="password" placeholder="Password"
-													required="" /> <input type="checkbox" id="brand" value="">
+											<form  method="post" >
+												<input type="text" name="email" id="email2" class="email" placeholder="Email" required="" /> 
+												<div id="divLogin1"></div>
+												<input type="password" name="password" id="password3" class="password" placeholder="Password" required="" />
+												<div id="divLogin2"></div>
+												<input type="checkbox" id="brand" value="">
 												<label for="brand"><span></span> 记住我的信息</label>
 												<div class="login-bottom">
 													<ul>
 														<li><a href="#">忘记密码?</a></li>
-														<li><input type="submit" value="登录" /></li>
+														<li><input id="loginButton" type="button" value="登录" /></li>
 														</br>
 													</ul>
 												</div>

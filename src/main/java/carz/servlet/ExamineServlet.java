@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import carz.controller.UserController;
 import carz.dao.DAOFactory;
 import carz.dao.IComDAO;
 import carz.dao.ISellDAO;
@@ -30,6 +31,7 @@ public class ExamineServlet extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String email = request.getParameter("email");
 		String strSellState = request.getParameter("sellState");
 		String strSellId = request.getParameter("sellId");
 		String strButton = request.getParameter("button");
@@ -48,9 +50,17 @@ public class ExamineServlet extends HttpServlet {
 			buttonNumb = Integer.parseInt(strButton);
 		} catch (Exception e) {
 		}
-		
 		ISellDAO sellDAO = DAOFactory.buildDAOFactory().createSellDAO();
 		sellDAO.update(sellId, sellState);
+		if(email!=null) {
+			UserController usercontroller = new UserController();
+			//邮件主题
+			String emailTitle = "牛大了";
+			//邮件内容 
+			String emailContent="这个邮件牛大了!";
+			usercontroller.sendEmailOwn(email, emailTitle, emailContent);
+		}
+		email = null;
 		request.setAttribute("buttonNumb", buttonNumb);
 		request.getRequestDispatcher("BackstageServlet").forward(request, response);
 	}

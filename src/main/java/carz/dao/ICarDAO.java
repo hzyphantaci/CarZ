@@ -19,7 +19,9 @@ public interface ICarDAO {
 	public List<String> searchBrands();
 	public List<String> searchPowers();
 	public List<String> searchModels();
+	public List<String> searchModelsByBrand(String brand);
 	public List<String> searchTypes();
-	public String findBrandByComId(int comId);	
+	public String findBrandByComId(int comId);
+	public String findBrandByCarId(int carId);
 	
 }

@@ -18,4 +18,8 @@ public interface IUserDAO {
     public Date findDateByBuyId(int id);
     public Date findAppointmentTimeByBuyId(int id);
     public List<UserPO> findAllEmail();
+    public List<BuyOrderPO> findAllBuyOrderByStateAndId(int currPageNo, int number, int state,int id);
+    public String findEmailById(int id); 
+    public void addBuyOrder(String code , int comId , int userId , int buyConcactWay, 
+	          String buyConcactAddress , String date , String appointmentTime);
 }
