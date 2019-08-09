@@ -35,44 +35,45 @@ public class SellServlet extends HttpServlet {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			factory.setRepository(new File("d:/temp"));
 			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setHeaderEncoding("UTF-8"); 
 			try {
 				List<FileItem> items = upload.parseRequest(request);
 				for (FileItem item : items) {
 					if (item.isFormField()) {
-						System.out.println(item.getFieldName() + "---->" + item.getString());
+						System.out.println(item.getFieldName() + "---->" + item.getString("UTF-8"));
 						switch (item.getFieldName()) {
 							case "brand" :
-								brand = item.getString();
+								brand = item.getString("UTF-8");
 								break;
 							case "Model" :
-								model = item.getString();
+								model = item.getString("UTF-8");
 								break;
 							case "Color" :
-								color = item.getString();
+								color = item.getString("UTF-8");
 								break;
 							case "year" :
-								year = item.getString();
+								year = item.getString("UTF-8");
 								break;
 							case "Month" :
-								month = item.getString();
+								month = item.getString("UTF-8");
 								break;
 							case "city" :
-								city = item.getString();
+								city = item.getString("UTF-8");
 								break;
 							case "mileage" :
-								mileage = Double.parseDouble(item.getString());
+								mileage = Double.parseDouble(item.getString("UTF-8"));
 								break;
 							case "price" :
-								price = Double.parseDouble(item.getString());
+								price = Double.parseDouble(item.getString("UTF-8"));
 								break;
 							case "name" :
-								city = item.getString();
+								city = item.getString("UTF-8");
 								break;
 							case "email" :
-								email = item.getString();
+								email = item.getString("UTF-8");
 								break;
 							case "phone" :
-								phone = item.getString();
+								phone = item.getString("UTF-8");
 								break;
 							default :
 								break;
